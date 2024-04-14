@@ -74,7 +74,7 @@ export interface Database {
             referencedColumns: ['id']
           }
         ]
-      }
+      } | null
     }
     Views: {
       [_ in never]: never
