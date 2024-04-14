@@ -13,7 +13,7 @@ export function AuthButton ({ session }: { session: Session | null }) {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: '/auth/callback'
+        redirectTo: 'https://trelionjuancarlossa.vercel.app/auth/callback'
       }
     })
   }
