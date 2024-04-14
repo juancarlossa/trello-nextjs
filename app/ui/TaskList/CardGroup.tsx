@@ -2,11 +2,11 @@
 import { Card, CardHeader, CardBody, Divider } from '@nextui-org/react'
 import { type Post } from '@/types/tasks'
 import { Pencil, Loader, Check } from '../icons'
-import { useState, type RefObject } from 'react'
+import { useState } from 'react'
 import { CardWithDivider } from './Card'
 import { Reorder } from 'framer-motion'
 
-export default function CardGroup ({ posts }: { posts: Post[] | null }) {
+export default function CardGroup ({ posts }: { posts: Post[] }) {
   const [items, setItems] = useState([0, 1, 2])
   const [tasks, setTasks] = useState([0, 1, 2, 3, 4, 5, 6])
 
@@ -16,21 +16,22 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
     { title: 'Done', icon: Check, type: 'done' }
   ]
 
-  const CardList = ({ posts, type }: { posts: Post[] | null, type: string }) => {
+  const CardList = ({ posts, type }: { posts: Post[], type: string }) => {
     return (
       <Reorder.Group axis="y" values={tasks} onReorder={setTasks}>
         {posts?.map((post, index) => {
           const {
-            id,
+            id: taskid,
             user,
             content,
             created_at: createdAt,
             liked,
-            tasktype,
-            index: indexDB
+            tasktype
           } = post
-          console.log(post.content, index)
+
           const {
+            email,
+            id: userid,
             user_name: userName,
             name: userFullName,
             avatar_url: avatarUrl
@@ -41,16 +42,17 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
               <li key={index}>
                 {tasktype === type
                   ? <CardWithDivider
-                    id={id}
+                    id={taskid}
                     content={content}
-                    key={id}
-                    userName={userName}
-                    userFullName={userFullName}
-                    avatarUrl={avatarUrl}
+                    key={taskid}
                     createdAt={createdAt}
                     liked={liked}
                     tasktype={tasktype}
-                    index={indexDB}
+                    userName={userName}
+                    userFullName={userFullName}
+                    avatarUrl={avatarUrl}
+                    email={email}
+                    userId={userid}
                   />
                   : ''
                 }
@@ -62,7 +64,7 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
       </Reorder.Group>
     )
   }
-  const CardCol = ({ key, title, type, ref, icon }: { key?: number, title: string, type: string, ref?: RefObject<HTMLElement>, icon: () => JSX.Element }) => {
+  const CardCol = ({ title, type, icon }: { title: string, type: string, icon: () => JSX.Element }) => {
     return (
       <Card
         className="w-[400px] h-[500px] mx-5">

@@ -1,7 +1,7 @@
-import { type Database } from '@/types/database'
+import { type Tables } from '@/types/database'
 
-type PostEntity = Database['public']['Tables']['tasks']['Row']
-type UserEntity = Database['public']['Tables']['users']
+type PostEntity = Tables<'tasks'>
+type UserEntity = Tables<'users'>
 
 export type Post = PostEntity & {
   user: UserEntity

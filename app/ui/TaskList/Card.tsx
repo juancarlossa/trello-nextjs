@@ -12,25 +12,26 @@ import { TodoButton } from '../Button/TodoButton'
 
 export function CardWithDivider ({
   id,
-  userFullName,
-  userName,
-  avatarUrl,
   content,
   createdAt,
   liked,
   tasktype,
-  index
-
+  userFullName,
+  userName,
+  avatarUrl,
+  email,
+  userId
 }: {
   id: string
-  userFullName: string
-  userName: string
-  avatarUrl: string
   content: string
   createdAt: string
   liked: boolean
   tasktype: string
-  index: number
+  userFullName: string
+  userName: string
+  avatarUrl: string
+  email: string
+  userId: string
 }) {
   const [isVisible, setIsVisible] = useState(true)
 

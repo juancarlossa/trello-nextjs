@@ -1,5 +1,3 @@
-import { type MergeDeep } from 'type-fest'
-import { type Database as DatabaseGenerated } from './databaseGenerated'
 export type Json =
   | string
   | number
@@ -8,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export type Database = MergeDeep<DatabaseGenerated, {
+export interface Database {
   public: {
     Tables: {
       tasks: {
@@ -96,7 +94,7 @@ export type Database = MergeDeep<DatabaseGenerated, {
     }
   }
 }
->
+
 type PublicSchema = Database[Extract<keyof Database, 'public'>]
 
 export type Tables<
