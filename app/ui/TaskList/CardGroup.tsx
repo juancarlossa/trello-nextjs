@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { CardWithDivider } from './Card'
 import { Reorder } from 'framer-motion'
 
-export default function CardGroup ({ posts }: { posts: Post[] }) {
+export default function CardGroup ({ posts }: { posts: Post[] | null }) {
   const [items, setItems] = useState([0, 1, 2])
   const [tasks, setTasks] = useState([0, 1, 2, 3, 4, 5, 6])
 
@@ -16,7 +16,7 @@ export default function CardGroup ({ posts }: { posts: Post[] }) {
     { title: 'Done', icon: Check, type: 'done' }
   ]
 
-  const CardList = ({ posts, type }: { posts: Post[], type: string }) => {
+  const CardList = ({ posts, type }: { posts: Post[] | null, type: string }) => {
     return (
       <Reorder.Group axis="y" values={tasks} onReorder={setTasks}>
         {posts?.map((post, index) => {
@@ -64,7 +64,7 @@ export default function CardGroup ({ posts }: { posts: Post[] }) {
       </Reorder.Group>
     )
   }
-  const CardCol = ({ title, type, icon }: { title: string, type: string, icon: () => JSX.Element }) => {
+  const CardCol = ({ posts, title, type, icon }: { posts: Post[] | null, title: string, type: string, icon: () => JSX.Element }) => {
     return (
       <Card
         className="w-[400px] h-[500px] mx-5">
@@ -87,7 +87,7 @@ export default function CardGroup ({ posts }: { posts: Post[] }) {
       <section className='flex flex-row'>
         {items.map((item) => (
           <Reorder.Item key={item} value={item}>
-            <CardCol key={item} title={data[item].title} icon={data[item].icon} type={data[item].type} />
+            <CardCol posts={posts} key={item} title={data[item].title} icon={data[item].icon} type={data[item].type} />
           </Reorder.Item>
         ))}
       </section>

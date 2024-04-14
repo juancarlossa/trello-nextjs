@@ -20,7 +20,7 @@ export type Database = MergeDeep<DatabaseGenerated, {
           liked: boolean
           tasktype: Database['public']['Enums']['tasktype']
           user_id: string
-        }
+        } | null
         Insert: {
           content: string
           created_at?: string
