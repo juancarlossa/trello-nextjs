@@ -13,9 +13,9 @@ export const addPost = async (formData: FormData) => {
   const supabase = createServerActionClient({ cookies })
   // revisar si el usuario realmene está autentificado
   const { data: { user } } = await supabase.auth.getUser()
-  if (user === null) return
+  // if (user === null) return
 
-  await supabase.from('tasks').insert({ content, user_id: user.id })
+  await supabase.from('tasks').insert({ content, user_id: user?.id })
   revalidatePath(`/?content=${JSON.stringify(content)}`)
   console.log('add')
 }

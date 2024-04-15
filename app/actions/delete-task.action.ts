@@ -8,7 +8,7 @@ export const deletePost = async (id: string) => {
   const supabase = createServerActionClient({ cookies })
   // revisar si el usuario realmene está autentificado
   const { data: { user } } = await supabase.auth.getUser()
-  if (user === null) return
+  // if (user === null) return
 
   await supabase.from('tasks')
     .delete()

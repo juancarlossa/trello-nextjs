@@ -26,8 +26,7 @@ export function CardWithDivider ({
   taskIndex: number
 }) {
   const [isVisible, setIsVisible] = useState(true)
-  const y = useMotionValue(0)
-  const boxShadow = useRaisedShadow(y)
+
   const DeleteButton = () => {
     return (
       <button
@@ -53,37 +52,36 @@ export function CardWithDivider ({
     }
   }
   return (
-    <Reorder.Item value={taskIndex} id={id} style={{ boxShadow, y }}>
-      <Card className={
-        tasktype === 'todo'
-          ? 'bg-slate-200 text-black w-[250px] my-5'
-          : tasktype === 'doing'
-            ? 'bg-blue-800 w-[250px] my-5'
-            : tasktype === 'done' ? 'bg-green-600 w-[250px] my-5' : ''
-      }>
-        <CardHeader
-          className="flex gap-3 justify-between">
-          <Image
-            alt="nextui logo"
-            height={40}
-            radius='full'
-            src='img-juank.jpg'
-            width={40}
-          />
-          <DeleteButton />
-        </CardHeader>
 
-        <CardBody className="justify-center items-center pb-7">
-          <p className='font-extralight antialiased text-xl selection:bg-fuchsia-300 selection:text-fuchsia-900'>{content}</p>
-        </CardBody>
+    <Card className={
+      tasktype === 'todo'
+        ? 'bg-slate-200 text-black w-[250px] my-5'
+        : tasktype === 'doing'
+          ? 'bg-blue-800 w-[250px] my-5'
+          : tasktype === 'done' ? 'bg-green-600 w-[250px] my-5' : ''
+    }>
+      <CardHeader
+        className="flex gap-3 justify-between">
+        <Image
+          alt="nextui logo"
+          height={40}
+          radius='full'
+          src='img-juank.jpg'
+          width={40}
+        />
+        <DeleteButton />
+      </CardHeader>
 
-        <CardFooter className='justify-between items-center px-10'>
-          {tasktype === 'todo' ? <><DoingButton id={id} /><DoneButton id={id} /></> : ''}
-          {tasktype === 'doing' ? <><TodoButton id={id} /><DoneButton id={id} /></> : ''}
-          {tasktype === 'done' ? <><TodoButton id={id} /><DoingButton id={id} /></> : ''}
-          <LikeButton liked={liked} id={id} />
-        </CardFooter>
-      </Card>
-    </Reorder.Item>
+      <CardBody className="justify-center items-center pb-7">
+        <p className='font-extralight antialiased text-xl selection:bg-fuchsia-300 selection:text-fuchsia-900'>{content}</p>
+      </CardBody>
+
+      <CardFooter className='justify-between items-center px-10'>
+        {tasktype === 'todo' ? <><DoingButton id={id} /><DoneButton id={id} /></> : ''}
+        {tasktype === 'doing' ? <><TodoButton id={id} /><DoneButton id={id} /></> : ''}
+        {tasktype === 'done' ? <><TodoButton id={id} /><DoingButton id={id} /></> : ''}
+        <LikeButton liked={liked} id={id} />
+      </CardFooter>
+    </Card>
   )
 }

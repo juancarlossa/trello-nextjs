@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 import { type Post } from '@/types/tasks'
 import CardGroup from './CardGroup'

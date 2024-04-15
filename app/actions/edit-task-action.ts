@@ -8,7 +8,7 @@ export const editLike = async (id: string, liked: boolean) => {
   const supabase = createServerActionClient({ cookies })
   // revisar si el usuario realmene está autentificado
   const { data: { user } } = await supabase.auth.getUser()
-  if (user === null) return
+  // if (user === null) return
 
   // Like button
   if (!liked) {
@@ -28,7 +28,7 @@ export const editLike = async (id: string, liked: boolean) => {
 export const editTodo = async (id: string) => {
   const supabase = createServerActionClient({ cookies })
   const { data: { user } } = await supabase.auth.getUser()
-  if (user === null) return
+  // if (user === null) return
 
   await supabase.from('tasks')
     .update({ tasktype: 'todo' })
@@ -40,7 +40,7 @@ export const editTodo = async (id: string) => {
 export const editDoing = async (id: string) => {
   const supabase = createServerActionClient({ cookies })
   const { data: { user } } = await supabase.auth.getUser()
-  if (user === null) return
+  // if (user === null) return
 
   await supabase.from('tasks')
     .update({ tasktype: 'doing' })
@@ -52,7 +52,7 @@ export const editDoing = async (id: string) => {
 export const editDone = async (id: string) => {
   const supabase = createServerActionClient({ cookies })
   const { data: { user } } = await supabase.auth.getUser()
-  if (user === null) return
+  // if (user === null) return
 
   await supabase.from('tasks')
     .update({ tasktype: 'done' })

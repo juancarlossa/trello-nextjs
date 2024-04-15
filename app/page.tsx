@@ -12,9 +12,9 @@ export default async function Home () {
   const { data: { session } } = await supabase.auth.getSession()
   // GET session
   // Redireccion si no hay logeo
-  if (session === null) {
-    redirect('/login')
-  }
+  // if (session === null) {
+  //  redirect('/login')
+  // }
   // GET data from Database
   const { data: posts } = await supabase
     .from('tasks')
@@ -24,7 +24,7 @@ export default async function Home () {
   console.log('get')
   // .select('content')
 
-  const avatarUrl = session.user?.user_metadata?.avatar_url
+  const avatarUrl = session?.user?.user_metadata?.avatar_url
 
   return (
     <main className="h-screen">

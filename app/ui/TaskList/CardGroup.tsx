@@ -24,7 +24,7 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
         {tasks.map((taskIndex) => {
           const post = posts != null ? posts[taskIndex] : null
           return (
-            <>
+            <Reorder.Item value={taskIndex} key={taskIndex}>
               {post != null && post.tasktype === type && (
                 <CardWithDivider
                   taskIndex={taskIndex}
@@ -35,7 +35,7 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
                   tasktype={post.tasktype}
                 />
               )}
-            </>
+            </Reorder.Item>
           )
         })
         }
@@ -45,7 +45,7 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
   const CardCol = ({ posts, title, type, icon }: { posts: Post[] | null, title: string, type: string, icon: () => JSX.Element }) => {
     return (
       <Card
-        className="w-[400px] h-[500px] mx-5">
+        className="w-[300px] max-h-screen mx-5">
         <CardHeader className="flex gap-3 justify-between">
           {icon()}
           <div className="flex flex-row">
