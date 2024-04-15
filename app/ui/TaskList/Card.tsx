@@ -3,38 +3,31 @@ import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card'
 import { Image } from '@nextui-org/image'
 import { deletePost } from '@/actions/delete-task.action'
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { Reorder, useMotionValue } from 'framer-motion'
 import { XIcon } from '../icons'
 import { LikeButton } from '../Button/LikeButton'
 import { DoingButton } from '../Button/DoingButton'
 import { DoneButton } from '../Button/DoneButton'
 import { TodoButton } from '../Button/TodoButton'
+import { useRaisedShadow } from './use-raised-shadow'
 
 export function CardWithDivider ({
   id,
   content,
-  createdAt,
   liked,
   tasktype,
-  userFullName,
-  userName,
-  avatarUrl,
-  email,
-  userId
+  taskIndex
+
 }: {
   id: string
   content: string
-  createdAt: string
   liked: boolean
   tasktype: string
-  userFullName: string
-  userName: string
-  avatarUrl: string
-  email: string
-  userId: string
+  taskIndex: number
 }) {
   const [isVisible, setIsVisible] = useState(true)
-
+  const y = useMotionValue(0)
+  const boxShadow = useRaisedShadow(y)
   const DeleteButton = () => {
     return (
       <button
@@ -60,14 +53,14 @@ export function CardWithDivider ({
     }
   }
   return (
-    <motion.div
-      key={id}
-      variants={variants}
-      initial={{ opacity: 0 }}
-      animate={isVisible ? 'visible' : 'invisible'}
-      className=''
-    >
-      <Card className="bg-slate-800 w-[250px] my-5">
+    <Reorder.Item value={taskIndex} id={id} style={{ boxShadow, y }}>
+      <Card className={
+        tasktype === 'todo'
+          ? 'bg-slate-200 text-black w-[250px] my-5'
+          : tasktype === 'doing'
+            ? 'bg-blue-800 w-[250px] my-5'
+            : tasktype === 'done' ? 'bg-green-600 w-[250px] my-5' : ''
+      }>
         <CardHeader
           className="flex gap-3 justify-between">
           <Image
@@ -91,7 +84,6 @@ export function CardWithDivider ({
           <LikeButton liked={liked} id={id} />
         </CardFooter>
       </Card>
-    </motion.div>
-
+    </Reorder.Item>
   )
 }

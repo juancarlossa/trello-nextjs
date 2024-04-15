@@ -4,11 +4,13 @@ import { type Post } from '@/types/tasks'
 import { Pencil, Loader, Check } from '../icons'
 import { useState } from 'react'
 import { CardWithDivider } from './Card'
-import { Reorder } from 'framer-motion'
+import { Reorder, useDragControls } from 'framer-motion'
 
 export default function CardGroup ({ posts }: { posts: Post[] | null }) {
   const [items, setItems] = useState([0, 1, 2])
-  const [tasks, setTasks] = useState([0, 1, 2, 3, 4, 5, 6])
+  const [tasks, setTasks] = useState(posts != null ? Array.from({ length: posts.length }, (_, index) => index) : [])
+
+  const dragControls = useDragControls()
 
   const data = [
     { title: 'To do', icon: Pencil, type: 'todo' },
@@ -19,45 +21,21 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
   const CardList = ({ posts, type }: { posts: Post[] | null, type: string }) => {
     return (
       <Reorder.Group axis="y" values={tasks} onReorder={setTasks}>
-        {posts?.map((post, index) => {
-          const {
-            id: taskid,
-            user,
-            content,
-            created_at: createdAt,
-            liked,
-            tasktype
-          } = post
-
-          const {
-            email,
-            id: userid,
-            user_name: userName,
-            name: userFullName,
-            avatar_url: avatarUrl
-          } = user
-
+        {tasks.map((taskIndex) => {
+          const post = posts != null ? posts[taskIndex] : null
           return (
-            <Reorder.Item key={index} value={index}>
-              <li key={index}>
-                {tasktype === type
-                  ? <CardWithDivider
-                    id={taskid}
-                    content={content}
-                    key={taskid}
-                    createdAt={createdAt}
-                    liked={liked}
-                    tasktype={tasktype}
-                    userName={userName}
-                    userFullName={userFullName}
-                    avatarUrl={avatarUrl}
-                    email={email}
-                    userId={userid}
-                  />
-                  : ''
-                }
-              </li>
-            </Reorder.Item>
+            <>
+              {post != null && post.tasktype === type && (
+                <CardWithDivider
+                  taskIndex={taskIndex}
+                  id={post.id}
+                  content={post.content}
+                  key={post.id}
+                  liked={post.liked}
+                  tasktype={post.tasktype}
+                />
+              )}
+            </>
           )
         })
         }
@@ -68,9 +46,9 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
     return (
       <Card
         className="w-[400px] h-[500px] mx-5">
-        <CardHeader className="flex gap-3">
+        <CardHeader className="flex gap-3 justify-between">
           {icon()}
-          <div className="flex flex-col">
+          <div className="flex flex-row">
             <p className="text-md">{title}</p>
           </div>
         </CardHeader>
@@ -86,13 +64,12 @@ export default function CardGroup ({ posts }: { posts: Post[] | null }) {
     <Reorder.Group axis="x" values={items} onReorder={setItems}>
       <section className='flex flex-row'>
         {items.map((item) => (
-          <Reorder.Item key={item} value={item}>
+          <Reorder.Item key={item} value={item} dragListener={false} dragControls={dragControls}>
             <CardCol posts={posts} key={item} title={data[item].title} icon={data[item].icon} type={data[item].type} />
           </Reorder.Item>
         ))}
       </section>
     </Reorder.Group>
-
   )
 }
 
