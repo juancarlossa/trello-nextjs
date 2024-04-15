@@ -2,14 +2,14 @@
 import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card'
 import { Image } from '@nextui-org/image'
 import { deletePost } from '@/actions/delete-task.action'
-import { useState } from 'react'
-import { Reorder, useMotionValue } from 'framer-motion'
+// import { useState } from 'react'
+// import { Reorder, useMotionValue } from 'framer-motion'
 import { XIcon } from '../icons'
 import { LikeButton } from '../Button/LikeButton'
 import { DoingButton } from '../Button/DoingButton'
 import { DoneButton } from '../Button/DoneButton'
 import { TodoButton } from '../Button/TodoButton'
-import { useRaisedShadow } from './use-raised-shadow'
+// import { useRaisedShadow } from './use-raised-shadow'
 
 export function CardWithDivider ({
   id,
@@ -25,13 +25,13 @@ export function CardWithDivider ({
   tasktype: string
   taskIndex: number
 }) {
-  const [isVisible, setIsVisible] = useState(true)
+  // const [isVisible, setIsVisible] = useState(true)
 
   const DeleteButton = () => {
     return (
       <button
         onClick={async () => {
-          setIsVisible(false)
+          // setIsVisible(false)
           await deletePost(id)
         }}
         className="flex flex-row gap-3">
@@ -39,20 +39,8 @@ export function CardWithDivider ({
       </button>
     )
   }
-  const variants = {
-    visible: {
-      opacity: 1,
-      transition: { duration: 1.5 }
-    },
 
-    invisible: {
-      opacity: 0,
-      transition: { duration: 0.5 },
-      exit: { opacity: 0 }
-    }
-  }
   return (
-
     <Card className={
       tasktype === 'todo'
         ? 'bg-slate-200 text-black w-[250px] my-5'

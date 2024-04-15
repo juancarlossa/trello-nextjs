@@ -1,7 +1,7 @@
 // import Image from "next/image";
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+// import { redirect } from 'next/navigation'
 import Nav from './ui/Navbar/Nav'
 import { type Database } from './types/database'
 import { ComposeTask } from './ui/Forms/ComposeTask'
